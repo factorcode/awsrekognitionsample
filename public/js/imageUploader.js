@@ -34,8 +34,9 @@ const postImage = (type) => {
     //Obj of data to send in future like a dummyDb
     const data = { eImage: encodedImage };
 
-    postUrl = window.location.href +  (type == "custom" ? "/getcustomlabels" : "/getlabels")
+    postUrl = "http://localhost:3000/awsService" +  (type == "custom" ? "/getcustomlabels" : "/getlabels")
     console.log(postUrl);
+    console.log(data);
     //POST request with body equal on data in JSON format
     fetch(postUrl, {
         method: 'POST',
