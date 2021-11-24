@@ -51,8 +51,8 @@ let uploadImageToS3 = (imageBase64) => new Promise((resolve) => {
             uploadPromise.then(
                 function (data) {
                     console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
-                    console.log("Return ->", data);
-                    resolve(data);
+                    let s3Imagepath = `https://${bucketName}.s3.amazonaws.com/${keyName}${typeOfImage}`
+                    resolve(s3Imagepath);
                 });
         }).catch(
             function (err) {
