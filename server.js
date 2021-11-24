@@ -3,6 +3,7 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const { detectAWSLabels } = require('./rekognitionServices/DetectLabel')
 const { detectAWSCustomLabels } = require('./rekognitionServices/DetectCustomLabel')
+const { uploadImageToS3 } = require('./UploadImageToS3')
 
 const cors = require('cors');
 const app = express();
@@ -48,4 +49,11 @@ app.post('/awsService/getcustomlabels', async (req, res) => {
     const onlyEncodedString = req.body.eImage.includes(",")  ? req.body.eImage.split(',')[1] : req.body.eImage;
     const apiResponse = await detectAWSCustomLabels(onlyEncodedString);
     res.json(apiResponse ? apiResponse : {message : "No Response from AWS API"});
+})
+
+app.post('/awsService/uploadImgtoS3', async (req, res) => {
+    //console.log("Custom Call Requested");
+const onlyEncodedString = req.body.eImage.includes(",")  ? req.body.eImage.split(',')[1] : req.body.eImage;
+const apiResponse = await uploadImageToS3(onlyEncodedString);
+res.json(apiResponse ? apiResponse : {message : "No Response from AWS API"});
 })
